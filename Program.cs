@@ -1,21 +1,74 @@
-﻿
-while (true) {
-    Console.WriteLine("Welcome to the Calculator!");
-    Console.WriteLine("Please enter the first number:");
-    string input1 = Console.ReadLine();
-    Console.WriteLine("Please enter the second number:");
-    string input2 = Console.ReadLine();
-
-    Console.WriteLine("Would you like to 1.Add 2.Subtract 3.Divide 4.Multiply");
-    string userInput = Console.ReadLine();
+﻿using CalculatorApp;
+using System;
 
 
-    if (userInput == "1")
+
+namespace CalculatorApp {
+    class Program
     {
-        int answer = int.Parse(input1) + int.Parse(input2);
-        Console.WriteLine($"Your answer is {answer}");
-        
-        
-    }
+        static void Main(string[] args)
+        {
 
+            Calculator calc = new Calculator();
+
+            while (true)
+            {
+
+                double a = GetValidNumber("Enter first number:");
+                double b = GetValidNumber("enter second number:");
+                Console.WriteLine("Choose operation: 1.Add 2.Subtract 3.Multiply 4.Divide");
+                string choice = Console.ReadLine();
+
+                double result = 0;
+
+                switch (choice)
+                {
+
+                    case "1":
+                        result = calc.Add(a, b);
+                        break;
+                    case "2":
+                        result = calc.Subtract(a, b);
+                        break;
+                    case "3":
+                        result = calc.Multiply(a, b);
+                        break;
+                    case "4":
+                        result = calc.Divide(a, b);
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice.");
+                        continue;
+                }
+
+                Console.WriteLine($"Result: {result}");
+            }
+
+        }
+
+
+        static double GetValidNumber(string prompt)
+        {
+            while (true)
+            {
+
+                Console.Write(prompt);
+                string input = Console.ReadLine();
+
+                if (double.TryParse(input, out double number))
+                {
+                    return number;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid number. Try again");
+                }
+
+
+
+            }
+        }
+    }
 }
+
+
